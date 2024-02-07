@@ -1,44 +1,49 @@
 // Function to get computer's choice
-function computerPlay() {
+const computerPlay = () => {
   const choices = ['Rock', 'Paper', 'Scissors'];
   const randomIndex = Math.floor(Math.random() * 3);
   return choices[randomIndex];
-}
+};
 
-// Functoin to play only one round
-function playRound(playerSelection, computerSelection) {
+// Function to play a single round
+const playRound = (playerSelection, computerSelection) => {
   playerSelection = playerSelection.toLowerCase(); // Make case-insensitive
-  console.log(`Player chooses: ${playerSelection}`);
-  console.log(`Computer chooses: ${computerSelection}`);
+
+  alert(`You wield ${playerSelection} with the hope of defeating the evil AI's ${computerSelection}!`);
 
   if (
     (playerSelection === 'rock' && computerSelection === 'Scissors') ||
     (playerSelection === 'paper' && computerSelection === 'Rock') ||
     (playerSelection === 'scissors' && computerSelection === 'Paper')
   ) {
-    console.log(`You win! ${playerSelection} beats ${computerSelection}`);
+    alert(`Congratulations! Your ${playerSelection} crushes the evil AI's ${computerSelection}!`);
     return 'win';
   } else if (
     (playerSelection === 'scissors' && computerSelection === 'Rock') ||
     (playerSelection === 'rock' && computerSelection === 'Paper') ||
     (playerSelection === 'paper' && computerSelection === 'Scissors')
   ) {
-    console.log(`You lose! ${computerSelection} beats ${playerSelection}`);
+    alert(`Oh no! The evil AI's ${computerSelection} dominates your ${playerSelection}!`);
     return 'lose';
   } else {
-    console.log('It\'s a tie!');
+    alert('It\'s a draw! Neither side prevails!');
     return 'tie';
   }
-}
+};
 
 // Function to play the game
-function game() {
+const game = () => {
   let playerScore = 0;
   let computerScore = 0;
 
   for (let round = 1; round <= 5; round++) {
-    console.log(`Round ${round}`);
-    const playerSelection = prompt('Enter your choice: Rock, Paper, or Scissors');
+    alert(`Round ${round} begins!`);
+
+    let playerSelection = prompt('Choose your weapon: Rock, Paper, or Scissors');
+    while (!['rock', 'paper', 'scissors'].includes(playerSelection.toLowerCase())) {
+      playerSelection = prompt('Invalid choice! Please choose again: Rock, Paper, or Scissors');
+    }
+
     const computerSelection = computerPlay();
 
     const result = playRound(playerSelection, computerSelection);
@@ -50,16 +55,37 @@ function game() {
     }
   }
 
-  console.log(`Game over! Your score: ${playerScore}, Computer score: ${computerScore}`);
+  alert(`The battle rages on! Your score: ${playerScore}, AI's score: ${computerScore}`);
 
   if (playerScore > computerScore) {
-    console.log('Congratulations! You win the game!');
+    alert('Victory! With your indomitable spirit, you have overcome the AI and claimed the Artifact of Victory!');
   } else if (playerScore < computerScore) {
-    console.log('Sorry, you lose the game. Better luck next time!');
+    alert('Alas! The AI has proven too powerful this time. But fear not, for the battle continues until the Artifact of Victory is reclaimed!');
   } else {
-    console.log('It\'s a tie! No winner this time.');
+    alert('It\'s a stalemate! Neither side emerges victorious. The battle rages on!');
   }
-}
 
-// Start the game when the page loads
+  // Ask if the player wants to play again
+  const playAgain = confirm('Do you dare to challenge the AI once more in your quest for the Artifact of Victory?');
+  if (playAgain) {
+    alert('Prepare yourself for another round of battle!');
+    game(); // Restart the game
+  } else {
+    alert('Thank you for your bravery, warrior. Until we meet again on the battlefield! Farewell!');
+  }
+};
+
+alert("Welcome, brave warrior, to the Rock Paper Scissors Battle!");
+alert("In a world ravaged by the forces of darkness, a malevolent AI has risen to power, enslaving humanity and plunging the world into chaos.");
+alert("But there is hope. Legends speak of an ancient artifact, the Artifact of Victory, said to possess the power to defeat the AI and restore peace to the land.");
+alert("You, courageous hero, have been chosen to go on a perilous journey to reclaim the artifact and free humanity from the AI's tyranny.");
+alert("Prepare yourself for a series of battles against the AI's minions. Only by emerging victorious in a best-of-five duel can you hope to claim the artifact.");
+alert("Instructions:");
+alert("1. Choose your weapon: Rock, Paper, or Scissors.");
+alert("2. The AI will also choose its weapon.");
+alert("3. The winner of each round is determined by the rules of Rock Paper Scissors.");
+alert("4. Whoever wins the best-of-5 is declared the overall winner.");
+alert("5. Are you ready to face the challenge and reclaim the Artifact of Victory? Let the battle begin!");
+
+// Start the game
 game();
