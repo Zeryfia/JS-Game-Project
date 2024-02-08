@@ -1,9 +1,4 @@
-let DATA = {
-  computerOption: '',
-  playerOption: '',
-  playerPoints: 0,
-  computerPoints: 0
-}
+let computerOption = '';
 
 window.onload = () => {
   console.log('Rock, Paper, Scissors Game\n Type ROCK, PAPER OR SCISSORS\n In case you type a incorrect option you will lose the round');
@@ -12,6 +7,17 @@ window.onload = () => {
 
 const computerPlay = () => {
   // Get the random computer option
+  let random = Math.floor(Math.random() * 3);
+    
+    if (random == 0) {
+      computerOption = 'rock';
+    } else if (random == 1) {
+      computerOption = 'paper';
+    } else {
+      computerOption = 'scissors';
+    }
+
+  return computerOption;
 }
 const playerSelection = () => {
   // Get the player selection with prompt
