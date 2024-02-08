@@ -1,33 +1,31 @@
 // Function to get computer's choice
 const computerPlay = () => {
-  const choices = ['Rock', 'Paper', 'Scissors'];
+  const choices = ['rock', 'paper', 'scissors'];
   const randomIndex = Math.floor(Math.random() * 3);
   return choices[randomIndex];
 };
 
 // Function to play a single round
 const playRound = (playerSelection, computerSelection) => {
-  playerSelection = playerSelection.toLowerCase(); // Make case-insensitive
+  playerSelection = playerSelection.toLowerCase();
+
+  const outcomes = {
+    rock: { win: 'scissors', lose: 'paper' },
+    paper: { win: 'rock', lose: 'scissors' },
+    scissors: { win: 'paper', lose: 'rock' }
+  };
 
   alert(`You wield ${playerSelection} with the hope of defeating the evil AI's ${computerSelection}!`);
 
-  if (
-    (playerSelection === 'rock' && computerSelection === 'Scissors') ||
-    (playerSelection === 'paper' && computerSelection === 'Rock') ||
-    (playerSelection === 'scissors' && computerSelection === 'Paper')
-  ) {
-    alert(`Congratulations! Your ${playerSelection} crushes the evil AI's ${computerSelection}!`);
-    return 'win';
-  } else if (
-    (playerSelection === 'scissors' && computerSelection === 'Rock') ||
-    (playerSelection === 'rock' && computerSelection === 'Paper') ||
-    (playerSelection === 'paper' && computerSelection === 'Scissors')
-  ) {
-    alert(`Oh no! The evil AI's ${computerSelection} dominates your ${playerSelection}!`);
-    return 'lose';
-  } else {
+  if (playerSelection === computerSelection) {
     alert('It\'s a draw! Neither side prevails!');
     return 'tie';
+  } else if (outcomes[playerSelection].win === computerSelection) {
+    alert(`Congratulations! Your ${playerSelection} crushes the evil AI's ${computerSelection}!`);
+    return 'win';
+  } else {
+    alert(`Oh no! The evil AI's ${computerSelection} dominates your ${playerSelection}!`);
+      return 'lose';
   }
 };
 
