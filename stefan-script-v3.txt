@@ -11,7 +11,7 @@ const computerPlay = (list) => {
 	return option;
 }
 
-const validateMove = (text, arr) => {
+const validateInput = (text, arr) => {
 
 	let temp = text.trim();
 
@@ -25,23 +25,36 @@ const validateMove = (text, arr) => {
 		return false;
 }
 
-const handleUserInput = (round, max, arr) => {
+const playerOption = () => {
 
-	let accepted = false;
+	let accepted = '';
 
-	while (!accepted) {
+	 do {
 
-		let userText = prompt(`Round ${round+1}/${max} ENTER YOUR OPTION`);
+		let userText = prompt("Choose your weapon: Rock, Paper, or Scissors");
 
-		accepted = validateMove(userText, arr);
+		if (userText === null)
+			return null;
+		
+		accepted = validateInput(userText, ['rock', 'scissors', 'paper']);
 
 		if (!accepted)
-			alert("Wrong command! Please enter: 'rock', 'scissors', or 'paper'.")
-		else
-			return accepted;
-	}
+			alert("Invalid choice! Please choose again: Rock, Paper, or Scissors");
+		
+		} while (!accepted);
 
+	return accepted;
 }
+
+const cancelGame = () => {
+  logAndAlert('The game has been canceled. Farewell!');
+  return;
+};
+
+const logAndAlert = (message) => {
+  console.log(message);
+  alert(message);
+};
 
 const PlayRound = (playerSelection, computerSelection) => {
 
@@ -57,36 +70,24 @@ const PlayRound = (playerSelection, computerSelection) => {
 
 			case 'rock':
 
-			if (computerSelection == 'scissors') 
-				output = "You win! Rock beats Scissors";
+			computerSelection == 'scissors' ? output = "You win! Rock beats Scissors" :
+			computerSelection == 'paper' ? output = "You lose! Paper beats Rock" : output="default";
 
-			else if (computerSelection == 'paper') 
-				output = "You lose! Paper beats Rock";
-			
 			break;
 
 			case 'scissors':
 
-			if (computerSelection == 'paper') 
-				output = "You win! Scissors beat Paper";
-			
-			else if (computerSelection == 'rock') 
-				output = "You lose! Rock beats Scissors";
+			computerSelection == 'paper' ? output = "You win! Scissors beat Paper" :
+			computerSelection == 'rock' ? output = "You lose! Rock beats Scissors" : output="default";
 
 			break;
 
 			case 'paper':
 
-			if (computerSelection == 'rock') 
-				output = "You win! Paper beats Rock";
-			
-			else if (computerSelection == 'scissors') 
-				output = "You lose! Scissors beat Paper";
+			computerSelection == 'rock' ? output = "You win! Paper beats Rock" :
+			computerSelection == 'scissors' ? output = "You lose! Scissors beat Paper" : output="default";
 
 			break;
-
-			default: output = "default";
-
 		}
 	}
 
@@ -132,28 +133,28 @@ const getFinalResult = (score) => {
 
 	let computerSelection = null;
 
-	try {
-		for (let i=0; i < maxRounds; i++)
-		{
 
-			computerSelection = computerPlay(moves);
-			
-			playerSelection = handleUserInput(i, maxRounds, moves);
+	for (let i=0; i < maxRounds; i++)
+	{
 
-			alert("Computer\'s selection is " + computerSelection.toUpperCase());
+		computerSelection = computerPlay(moves);
+		
+		playerSelection = playerOption();
 
-			let roundResult = PlayRound(playerSelection, computerSelection);
-
-			evaluateRound( roundResult, score, i );
+		if (playerSelection === null) {
+			cancelGame();
+			return;
 		}
 
-		getFinalResult(score);
+		alert("Computer\'s selection is " + computerSelection.toUpperCase());
+
+		let roundResult = PlayRound(playerSelection, computerSelection);
+
+		evaluateRound( roundResult, score, i );
 	}
 
-	catch (err) {
+	getFinalResult(score);
 
-		alert("You have exited the game");
-	}
 
 })();
 
