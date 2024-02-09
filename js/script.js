@@ -1,23 +1,20 @@
 "use strict";
 
-// Jesus's function
 const computerPlay = () => {
   let computerOption = '';
-  // Get the random computer option
   let random = Math.floor(Math.random() * 3);
     
-    if (random == 0) {
-      computerOption = 'rock';
-    } else if (random == 1) {
-      computerOption = 'paper';
-    } else {
-      computerOption = 'scissors';
-    }
+  if (random == 0) {
+    computerOption = 'rock';
+  } else if (random == 1) {
+    computerOption = 'paper';
+  } else {
+    computerOption = 'scissors';
+  }
 
   return computerOption;
 }
 
-// Stefan's function
 const validateInput = (text, arr) => {
 
 	let temp = text.trim();
@@ -25,48 +22,37 @@ const validateInput = (text, arr) => {
 	let input = temp.toLowerCase();
 
 	if ( arr.indexOf(input) != -1 )
-
-		return input;
-
+	  return input;
 	else
 		return false;
 }
 
-// Stefan's function
 const playerOption = () => {
 
 	let accepted = '';
 
-	 do {
-
-		let userText = prompt("Choose your weapon: Rock, Paper, or Scissors");
-
+	do {
+    let userText = prompt("Choose your weapon: Rock, Paper, or Scissors");
 		if (userText === null)
 			return null;
-		
 		accepted = validateInput(userText, ['rock', 'scissors', 'paper']);
-
 		if (!accepted)
 			alert("Invalid choice! Please choose again: Rock, Paper, or Scissors");
-		
 		} while (!accepted);
 
 	return accepted;
 }
 
-// Bilal's function
 const cancelGame = () => {
   logAndAlert('The game has been canceled. Farewell!');
   return;
 };
 
-// Bilal's function
 const logAndAlert = (message) => {
   console.log(message);
   alert(message);
 };
 
-// Bilal's function
 const playRound = (playerSelection, computerSelection) => {
   if (playerSelection === null) {
     return 'cancel';
@@ -95,7 +81,6 @@ const playRound = (playerSelection, computerSelection) => {
 }
 
 
-// Jesus's function
 const displayFinalResults = (playerPoints, computerPoints) => {
     if (playerPoints > computerPoints) {
         return 'Victory! With your indomitable spirit, you have overcome the AI and claimed the Artifact of Victory!';
@@ -146,7 +131,6 @@ const game = () => {
 
 }
 
-// Bilal's function
 const playAgain = () => {
   const playAgain = confirm('Do you dare to challenge the AI once more in your quest for the Artifact of Victory?');
   if (playAgain) {
