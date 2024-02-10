@@ -4,7 +4,7 @@ https://zeryfia.github.io/JS-Game-Project/
 
 ## Overview
 
-The Rock Paper Scissors Battle game is a console-based JavaScript game where the player battles against an evil AI by choosing between rock, paper, or scissors. The game consists of a series of rounds, where the player and the AI make their selections, and the winner of each round is determined based on the classic rules of Rock Paper Scissors. The game continues until one side wins the best-of-five rounds.
+The Rock Paper Scissors Battle game is a console-based JavaScript game where the player battles against an evil AI by choosing between rock, paper, or scissors. The game consists of a series of rounds, where the player and the AI make their selections, and the winner of each round is determined based on the classic rules of Rock Paper Scissors. The game continues until one side wins the best-of-five rounds
 
 ## Features
 
