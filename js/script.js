@@ -1,56 +1,56 @@
 "use strict";
 
+const logAndAlert = (message) => {
+  console.log(message);
+  alert(message);
+};
+
 const computerPlay = () => {
   let computerOption = '';
   let random = Math.floor(Math.random() * 3);
     
-  if (random == 0) {
+  if (random === 0) {
     computerOption = 'rock';
-  } else if (random == 1) {
+  } else if (random === 1) {
     computerOption = 'paper';
   } else {
     computerOption = 'scissors';
   }
 
   return computerOption;
-}
+};
 
 const validateInput = (text, arr) => {
+  let temp = text.trim();
+  let input = temp.toLowerCase();
 
-	let temp = text.trim();
-
-	let input = temp.toLowerCase();
-
-	if ( arr.indexOf(input) != -1 )
-	  return input;
-	else
-		return false;
-}
+  if (arr.includes(input)) {
+    return input;
+  } else {
+    return false;
+  }
+};
 
 const playerOption = () => {
+  let accepted = '';
 
-	let accepted = '';
-
-	do {
+  do {
     let userText = prompt("Choose your weapon: Rock, Paper, or Scissors");
-		if (userText === null)
-			return null;
-		accepted = validateInput(userText, ['rock', 'scissors', 'paper']);
-		if (!accepted)
-			alert("Invalid choice! Please choose again: Rock, Paper, or Scissors");
-		} while (!accepted);
+    if (userText === null) {
+      cancelGame();
+      return null;
+    }
+    accepted = validateInput(userText, ['rock', 'scissors', 'paper']);
+    if (!accepted) {
+      alert("Invalid choice! Please choose again: Rock, Paper, or Scissors");
+    }
+  } while (!accepted);
 
-	return accepted;
-}
+  return accepted;
+};
 
 const cancelGame = () => {
   logAndAlert('The game has been canceled. Farewell!');
-  return;
-};
-
-const logAndAlert = (message) => {
-  console.log(message);
-  alert(message);
 };
 
 const playRound = (playerSelection, computerSelection) => {
@@ -78,58 +78,52 @@ const playRound = (playerSelection, computerSelection) => {
     logAndAlert(`Oh no! The evil AI's ${computerSelection} dominates your ${playerSelection}!`);
     return 'lose';
   }
-}
-
+};
 
 const displayFinalResults = (playerPoints, computerPoints) => {
-    if (playerPoints > computerPoints) {
-        return 'Victory! With your indomitable spirit, you have overcome the AI and claimed the Artifact of Victory!';
-    } else if (playerPoints < computerPoints) {
-        return 'Alas! The AI has proven too powerful this time. But fear not, for the battle continues until the Artifact of Victory is reclaimed!';
-    } else {
-        return 'It\'s a stalemate! Neither side emerges victorious. The battle rages on!';
-    }
-}
+  if (playerPoints > computerPoints) {
+    return 'Victory! With your indomitable spirit, you have overcome the AI and claimed the Artifact of Victory!';
+  } else if (playerPoints < computerPoints) {
+    return 'Alas! The AI has proven too powerful this time. But fear not, for the battle continues until the Artifact of Victory is reclaimed!';
+  } else {
+    return 'It\'s a stalemate! Neither side emerges victorious. The battle rages on!';
+  }
+};
 
 const game = () => {
+  let playerSelection = '';
+  let computerSelection = '';
 
-	let playerSelection = '';
-	let computerSelection = '';
-
-	let playerScore = 0;
+  let playerScore = 0;
   let computerScore = 0;
 
   for (let i = 1; i <= 5; i++) {
+    logAndAlert(`Round ${i} begins!`);
 
-  	logAndAlert(`Round ${i} begins!`);
+    computerSelection = computerPlay();
 
-  	computerSelection = computerPlay();
+    playerSelection = playerOption();
 
-  	playerSelection = playerOption();
+    if (playerSelection === null) {
+      return;
+    }
 
-		if (playerSelection === null) {
-			cancelGame();
-			return;
-		}
+    let result = playRound(playerSelection, computerSelection);
 
-		let result = playRound(playerSelection, computerSelection);
-
-		if (result === 'win') {
+    if (result === 'win') {
       playerScore++;
     } else if (result === 'lose') {
       computerScore++;
     }
 
     logAndAlert(`The battle rages on! Your score: ${playerScore}, AI's score: ${computerScore}`);
-      
   }
 
   const resultMessage = displayFinalResults(playerScore, computerScore);
   logAndAlert(resultMessage);
 
   playAgain();
-
-}
+};
 
 const playAgain = () => {
   const playAgain = confirm('Do you dare to challenge the AI once more in your quest for the Artifact of Victory?');
