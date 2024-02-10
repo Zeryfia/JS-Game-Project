@@ -41,13 +41,13 @@ const cancelGame = () => {
 };
 
 const playRound = (playerSelection, computerSelection) => {
-    logAndAlert(`You wield ${playerSelection} with the hope of defeating the evil AI's ${computerSelection}!`);
+    const selections = `You wield ${playerSelection} with the hope of defeating the evil AI's ${computerSelection}!`;
     const roundOutcome = toolsOutcomes[playerSelection][computerSelection]
     roundOutcome === "tie"
-        ? logAndAlert("It's a tie! Neither side prevails!")
+        ? logAndAlert(`${selections}. It's a tie! Neither side prevails!`)
         : roundOutcome === "win"
-            ? logAndAlert(`Congratulations! Your ${playerSelection} crushes the evil AI's ${computerSelection}!`)
-            : logAndAlert(`Oh no! The evil AI's ${computerSelection} dominates your ${playerSelection}!`);
+            ? logAndAlert(`${selections}. Congratulations! Your ${playerSelection} crushes the evil AI's ${computerSelection}!`)
+            : logAndAlert(`${selections}. Oh no! The evil AI's ${computerSelection} dominates your ${playerSelection}!`);
     return roundOutcome;
 }
 
